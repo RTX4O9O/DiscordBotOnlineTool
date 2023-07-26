@@ -15,19 +15,19 @@ public class Main {
         String token = readTokenFromFile(tokenFilePath);
         if (token == null || token.isEmpty()) {
             Scanner scanner = new Scanner(System.in);
-            System.out.print("請輸入機器人的Token：");
+            System.out.print("Bot Token: ");
             token = scanner.nextLine();
             writeTokenToFile(token, tokenFilePath);
         }
         JDABuilder.createDefault(token).build();
-        System.out.println("機器人已上線！");
+        System.out.println("Bot is now online!");
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("logout")) {
                 clearTokenFile(tokenFilePath);
-                System.out.println("Token已清除，程式重新開始執行。");
+                System.out.println("Token cache has been cleaned. Program restarting......");
                 startBot();
                 return;
             }
@@ -39,7 +39,7 @@ public class Main {
             return reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("無法讀取token檔案。");
+            System.out.println("Failed to load token");
             return null;
         }
     }
@@ -47,10 +47,10 @@ public class Main {
     private static void writeTokenToFile(String token, String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(token);
-            System.out.println("Token已成功存入檔案：token-temp");
+            System.out.println("Token has been save to：token-temp");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("無法寫入檔案。");
+            System.out.println("Failed to write token into cache");
         }
     }
 
@@ -58,9 +58,9 @@ public class Main {
         try {
             File file = new File(filePath);
             if (file.delete()) {
-                System.out.println("Token-temp檔案已清除。");
+                System.out.println("Token-temp has been cleaned");
             } else {
-                System.out.println("無法清除Token-temp檔案。");
+                System.out.println("Failed to clean Token-temp");
             }
         } catch (Exception e) {
             e.printStackTrace();
