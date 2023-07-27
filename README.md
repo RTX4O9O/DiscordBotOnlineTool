@@ -1,5 +1,5 @@
 # Discord Bot Online Tool
-## A Super Simple Discord Bot Host Tool
+## A Super Simple Discord Bot Hosting Tool
 
 ### What is this
 Discord Bot Online Tool is a Java-based application that allows users to run and manage Discord bots easily.
