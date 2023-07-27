@@ -97,7 +97,6 @@ public class Main {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             return reader.readLine();
         } catch (FileNotFoundException e) {
-            // 如果檔案不存在，回傳 null 或其他預設值
             return null;
         } catch (IOException e) {
             e.printStackTrace();
