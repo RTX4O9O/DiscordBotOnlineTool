@@ -1,3 +1,7 @@
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+
 import net.dv8tion.jda.api.JDABuilder;
 
 import java.io.*;
@@ -12,6 +16,8 @@ public class Main {
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static void main(String[] args) {
+        suppressLogbackLogs();
+        suppressJdaLog();
         startBot();
     }
 
@@ -73,6 +79,16 @@ public class Main {
         }
     }
 
+    private static void suppressLogbackLogs() {
+        ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
+        rootLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
+    }
+
+    private static void suppressJdaLog() {
+        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        root.setLevel(Level.ERROR);
+    }
+
     private static boolean validateToken(String token) {
         return !token.isEmpty();
     }
@@ -80,6 +96,9 @@ public class Main {
     private static String readTokenFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             return reader.readLine();
+        } catch (FileNotFoundException e) {
+            // 如果檔案不存在，回傳 null 或其他預設值
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load token");
@@ -110,4 +129,3 @@ public class Main {
         }
     }
 }
-
