@@ -3,24 +3,59 @@ import net.dv8tion.jda.api.JDABuilder;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import net.dv8tion.jda.api.JDA;
 
 public class Main {
+    private static JDA jda;
+    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     public static void main(String[] args) {
         startBot();
     }
 
     private static void startBot() {
+        String userName = System.getProperty("user.name");
         String currentDirectory = System.getProperty("user.dir");
-        String tokenFilePath = Paths.get(currentDirectory, "src", "token-temp").toString();
+        String jarName = new File(currentDirectory).getName().replace(".jar", "");
+        String botToolPath = Paths.get("C:", "Users", userName, "RTXBotTool").toString();
+        String tokenFolderPath = Paths.get(botToolPath, jarName, "token-temp").toString();
+
+        File tokenFolder = new File(tokenFolderPath);
+        if (!tokenFolder.exists()) {
+            tokenFolder.mkdirs();
+        }
+
+        String tokenFilePath = Paths.get(tokenFolderPath, "token-temp").toString();
         String token = readTokenFromFile(tokenFilePath);
-        if (token == null || token.isEmpty()) {
+        if (token == null || token.isEmpty() || !validateToken(token)) {
+            System.out.println("The provided token is invalid!");
+            clearTokenFile(tokenFilePath);
             Scanner scanner = new Scanner(System.in);
             System.out.print("Bot Token: ");
-            token = scanner.nextLine();
+            String userInput = scanner.nextLine();
+
+            // 檢查使用者是否輸入了 stop
+            if (userInput.equalsIgnoreCase("stop")) {
+                System.out.println("Bot is stopping...");
+                executorService.shutdownNow();
+                return;
+            }
+
+            token = userInput;
             writeTokenToFile(token, tokenFilePath);
         }
-        JDABuilder.createDefault(token).build();
-        System.out.println("Bot is now online!");
+
+        try {
+            jda = JDABuilder.createDefault(token).build();
+            System.out.println("Bot is now online!");
+        } catch (Exception e) {
+            System.out.println("Failed to start the bot: " + e.getMessage());
+            clearTokenFile(tokenFilePath);
+            startBot();
+            return;
+        }
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -28,13 +63,19 @@ public class Main {
             if (input.equalsIgnoreCase("logout")) {
                 System.out.println("Token cache has been cleaned. Program restarting......");
                 clearTokenFile(tokenFilePath);
+                jda.shutdownNow(); // 關閉機器人
                 startBot();
                 return;
             } else if (input.equalsIgnoreCase("stop")) {
                 System.out.println("Bot is stopping...");
-                break; 
+                jda.shutdownNow(); // 關閉機器人
+                break;
             }
         }
+    }
+
+    private static boolean validateToken(String token) {
+        return !token.isEmpty();
     }
 
     private static String readTokenFromFile(String filePath) {
@@ -50,7 +91,7 @@ public class Main {
     private static void writeTokenToFile(String token, String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(token);
-            System.out.println("Token has been save to：token-temp");
+            System.out.println("Token has been saved to: token-temp");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to write token into cache");
