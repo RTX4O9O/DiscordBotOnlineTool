@@ -36,7 +36,6 @@ public class Main {
             System.out.print("Bot Token: ");
             String userInput = scanner.nextLine();
 
-            // 檢查使用者是否輸入了 stop
             if (userInput.equalsIgnoreCase("stop")) {
                 System.out.println("Bot is stopping...");
                 executorService.shutdownNow();
@@ -63,12 +62,12 @@ public class Main {
             if (input.equalsIgnoreCase("logout")) {
                 System.out.println("Token cache has been cleaned. Program restarting......");
                 clearTokenFile(tokenFilePath);
-                jda.shutdownNow(); // 關閉機器人
+                jda.shutdownNow();
                 startBot();
                 return;
             } else if (input.equalsIgnoreCase("stop")) {
                 System.out.println("Bot is stopping...");
-                jda.shutdownNow(); // 關閉機器人
+                jda.shutdownNow();
                 break;
             }
         }
