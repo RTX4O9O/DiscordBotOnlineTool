@@ -26,10 +26,13 @@ public class Main {
         while (true) {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("logout")) {
-                clearTokenFile(tokenFilePath);
                 System.out.println("Token cache has been cleaned. Program restarting......");
+                clearTokenFile(tokenFilePath);
                 startBot();
                 return;
+            } else if (input.equalsIgnoreCase("stop")) {
+                System.out.println("Bot is stopping...");
+                break; 
             }
         }
     }
