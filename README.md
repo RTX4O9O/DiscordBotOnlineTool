@@ -36,3 +36,19 @@ Contributions are welcome!
 If you have any suggestions, bug reports, or feature requests
 please open an issue on the GitHub repository or submit a pull request.
 ty a lot<3
+
+## Disclaimer
+
+The software and code provided in this repository are for educational and experimental purposes only.
+The author makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the code.
+The author will not be liable for any errors, omissions, or any losses, injuries, or damages arising from the use of the code.
+
+Use the code at your own risk.
+It is recommended to thoroughly review and test any code before using it in a production environment or with sensitive data.
+The author is not responsible for any direct, indirect, incidental, or consequential damages resulting from the use of the code.
+
+Always use caution when working with unfamiliar code, and make sure to understand its implications before executing it.
+If you encounter any issues or have questions, feel free to create an issue in this repository, and the author will try to assist as best as possible.
+
+By using the code provided in this repository, you agree to this disclaimer and take full responsibility for your actions.
+
