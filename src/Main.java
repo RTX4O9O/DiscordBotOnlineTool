@@ -55,6 +55,7 @@ public class Main {
             jda = JDABuilder.createDefault(token).build();
             jda.getPresence().setStatus(OnlineStatus.ONLINE);
             System.out.println("Bot is now online!");
+            System.out.println("Successfully logged in using the token in the temp file");
         } catch (Exception e) {
             System.out.println("Failed to start the bot: " + e.getMessage());
             clearTokenFile(tokenFilePath);
