@@ -27,7 +27,9 @@ now, bot should work perfectly
 
 ### Anything else
 there are several commands you can use in the console
+
 `stop` stop the bot and turn off the console
+
 `logout` logout from current BOT and you can log into another BOT you want
 
 
