@@ -1,15 +1,14 @@
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-
 import net.dv8tion.jda.api.JDABuilder;
-
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.OnlineStatus;
 
 public class Main {
     private static JDA jda;
@@ -54,6 +53,7 @@ public class Main {
 
         try {
             jda = JDABuilder.createDefault(token).build();
+            jda.getPresence().setStatus(OnlineStatus.ONLINE);
             System.out.println("Bot is now online!");
         } catch (Exception e) {
             System.out.println("Failed to start the bot: " + e.getMessage());
