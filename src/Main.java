@@ -21,12 +21,12 @@ public class Main {
     }
 
     private static void startBot() {
-        String userName = System.getProperty("user.name");
+        String userHome = System.getProperty("user.home");
+        String botToolPath = Paths.get(userHome, "RTXBotTool").toString();
         String currentDirectory = System.getProperty("user.dir");
         String jarName = new File(currentDirectory).getName().replace(".jar", "");
-        String botToolPath = Paths.get("C:", "Users", userName, "RTXBotTool").toString();
-        String tokenFolderPath = Paths.get(botToolPath, jarName, "token-temp").toString();
-
+        String tokenFolderPath = Paths.get(botToolPath, jarName).toString();
+        System.out.println(tokenFolderPath);
         File tokenFolder = new File(tokenFolderPath);
         if (!tokenFolder.exists()) {
             tokenFolder.mkdirs();
