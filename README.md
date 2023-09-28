@@ -32,6 +32,9 @@ there are several commands you can use in the console
 
 `logout` logout from current BOT and you can log into another BOT you want
 
+### What's next
+[there are some ideas of super cool feature ideas](https://github.com/RTX4O9O/DiscordBotOnlineTool/discussions/9)
+feel free to check it out and leave your idea
 
 ### Where can I contribute
 Contributions are welcome!
