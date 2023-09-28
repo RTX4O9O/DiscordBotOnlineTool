@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="discordBotOnlineTool">
-    <output-path>$PROJECT_DIR$/out/artifacts/discordBotOnlineTool</output-path>
-    <root id="archive" name="discordBotOnlineTool.jar">
-      <element id="library" level="project" name="net.dv8tion.JDA" />
-      <element id="library" level="project" name="ch.qos.logback.classic" />
-    </root>
-  </artifact>
-</component>
