@@ -6,7 +6,7 @@ echo  / , _/ / / _^>  ^</_  _/ // /^\_, / // /
 echo /_/^|_^| /_/ /_/^|_^| /_/ ^\___//___/^\___/
 @echo on
 java -jar discordBotOnlineTool-beta-v2.4.jar
-pause
 @echo off
 cls
+echo discordBotOnlineTool has been stopped.
 pause
