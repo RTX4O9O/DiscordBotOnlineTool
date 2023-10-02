@@ -26,7 +26,6 @@ public class Main {
         String currentDirectory = System.getProperty("user.dir");
         String jarName = new File(currentDirectory).getName().replace(".jar", "");
         String tokenFolderPath = Paths.get(botToolPath, jarName).toString();
-        System.out.println(tokenFolderPath);
         File tokenFolder = new File(tokenFolderPath);
         if (!tokenFolder.exists()) {
             tokenFolder.mkdirs();
