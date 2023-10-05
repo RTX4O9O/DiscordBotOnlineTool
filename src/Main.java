@@ -70,9 +70,9 @@ public class Main {
                 System.out.println("Bot is stopping...");
                 jda.shutdownNow();
                 break;
-            } else if (input.equalsIgnoreCase("/onlinestatus")) {
+            } else if (input.equalsIgnoreCase("/onlinestatus") || input.equalsIgnoreCase("/os")) {
                 System.out.println("Current online status is: " + getOnlineStatus().getKey());
-            } else if (input.startsWith("/onlinestatus set ")) {
+            } else if (input.startsWith("/onlinestatus set ") || input.startsWith("/os set ")) {
                 String[] parts = input.split(" ");
                 if (parts.length == 3 && parts[1].equalsIgnoreCase("set")) {
                     int statusCode;
