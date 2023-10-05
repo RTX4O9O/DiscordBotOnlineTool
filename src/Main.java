@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 public class Main {
     private static JDA jda;
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static OnlineStatus onlineStatus = OnlineStatus.ONLINE; // Default online status
 
     public static void main(String[] args) {
         suppressLogbackLogs();
@@ -39,22 +40,16 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Bot Token: ");
             String userInput = scanner.nextLine();
-
-            if (userInput.equalsIgnoreCase("stop")) {
-                System.out.println("Bot is stopping...");
-                executorService.shutdownNow();
-                return;
-            }
-
             token = userInput;
             writeTokenToFile(token, tokenFilePath);
         }
 
         try {
             jda = JDABuilder.createDefault(token).build();
-            jda.getPresence().setStatus(OnlineStatus.ONLINE);
+            jda.getPresence().setStatus(getOnlineStatus());
             System.out.println("Bot is now online!");
             System.out.println("Successfully logged in using the token in the temp file");
+            System.out.println("Hint: you can use \"/\" as a prefix to execute commands");
         } catch (Exception e) {
             System.out.println("Failed to start the bot: " + e.getMessage());
             clearTokenFile(tokenFilePath);
@@ -65,18 +60,39 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("logout")) {
+            if (input.equalsIgnoreCase("/logout")) {
                 System.out.println("Token cache has been cleaned. Program restarting......");
                 clearTokenFile(tokenFilePath);
                 jda.shutdownNow();
                 startBot();
                 return;
-            } else if (input.equalsIgnoreCase("stop")) {
+            } else if (input.equalsIgnoreCase("/stop")) {
                 System.out.println("Bot is stopping...");
                 jda.shutdownNow();
                 break;
+            } else if (input.equalsIgnoreCase("/onlinestatus")) {
+                System.out.println("Current online status is: " + getOnlineStatus().getKey());
+            } else if (input.startsWith("/onlinestatus set ")) {
+                String[] parts = input.split(" ");
+                if (parts.length == 3 && parts[1].equalsIgnoreCase("set")) {
+                    int statusCode;
+                    try {
+                        statusCode = Integer.parseInt(parts[2]);
+                        if (statusCode >= 0 && statusCode <= 3) {
+                            setOnlineStatus(statusCode);
+                            System.out.println("Online status has been set.");
+                        } else {
+                            System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                    }
+                } else {
+                    System.out.println("Invalid command. Use '/onlinestatus set <0|1|2|3>' to set online status.");
+                }
             }
         }
+
     }
 
     private static void suppressLogbackLogs() {
@@ -127,4 +143,32 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    private static void setOnlineStatus(int statusCode) {
+        switch (statusCode) {
+            case 0:
+                onlineStatus = OnlineStatus.ONLINE;
+                break;
+            case 1:
+                onlineStatus = OnlineStatus.IDLE;
+                break;
+            case 2:
+                onlineStatus = OnlineStatus.DO_NOT_DISTURB;
+                break;
+            case 3:
+                onlineStatus = OnlineStatus.INVISIBLE;
+                break;
+            default:
+                System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                break;
+        }
+        if (jda != null) {
+            jda.getPresence().setStatus(onlineStatus);
+        }
+    }
+
+    private static OnlineStatus getOnlineStatus() {
+        return onlineStatus;
+    }
 }
+
