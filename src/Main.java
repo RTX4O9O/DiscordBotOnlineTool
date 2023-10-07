@@ -2,18 +2,21 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.OnlineStatus;
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.OnlineStatus;
 
 public class Main {
     private static JDA jda;
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private static OnlineStatus onlineStatus = OnlineStatus.ONLINE; // Default online status
+    private static OnlineStatus onlineStatus = OnlineStatus.ONLINE;
+    private static Activity currentActivity;
 
     public static void main(String[] args) {
         suppressLogbackLogs();
@@ -70,14 +73,16 @@ public class Main {
                 System.out.println("Bot is stopping...");
                 jda.shutdownNow();
                 break;
+
             } else if (input.equalsIgnoreCase("/onlinestatus") || input.equalsIgnoreCase("/os")) {
                 System.out.println("Current online status is: " + getOnlineStatus().getKey());
+
             } else if (input.startsWith("/onlinestatus set ") || input.startsWith("/os set ")) {
-                String[] parts = input.split(" ");
-                if (parts.length == 3 && parts[1].equalsIgnoreCase("set")) {
+                String[] osParts = input.split(" ");
+                if (osParts.length == 3 && osParts[1].equalsIgnoreCase("set")) {
                     int statusCode;
                     try {
-                        statusCode = Integer.parseInt(parts[2]);
+                        statusCode = Integer.parseInt(osParts[2]);
                         if (statusCode >= 0 && statusCode <= 3) {
                             setOnlineStatus(statusCode);
                             System.out.println("Online status has been set.");
@@ -88,11 +93,65 @@ public class Main {
                         System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
                     }
                 } else {
-                    System.out.println("Invalid command. Use '/onlinestatus set <0|1|2|3>' to set online status.");
+                    System.out.println("Invalid command. Use \"/onlinestatus set <0|1|2|3>\" to set online status.");
                 }
+
+            } else if (input.equalsIgnoreCase("/activity")) {
+                if (currentActivity != null) {
+                    System.out.println("Current Activity: " + currentActivity.getType() + " - " + currentActivity.getName());
+                } else {
+                    System.out.println("There's no activity right now.");
+                }
+
+            } else if (input.startsWith("/activity template set")) {
+
+                String[] acParts = input.split(" ");
+                String activityCode = acParts[3];
+                String[] activityNameArray = Arrays.copyOfRange(acParts, 4, acParts.length);
+                String activityName = String.join(" ", activityNameArray);
+
+                switch (activityCode) {
+                    case "p":
+                        currentActivity = Activity.playing(activityName);
+                        break;
+                    case "l":
+                        currentActivity = Activity.listening(activityName);
+                        break;
+                    case "w":
+                        currentActivity = Activity.watching(activityName);
+                        break;
+                    case "c":
+                        currentActivity = Activity.competing(activityName);
+                        break;
+                    case "s":
+                        String streamUrl = acParts[4];
+                        currentActivity = Activity.streaming(activityName, streamUrl);
+                        break;
+                    default:
+                        System.out.println("Invalid activity code. Use p for Playing, s for Streaming, l for Listening, w for Watching, or c for Competing.");
+                }
+                jda.getPresence().setActivity(currentActivity);
+                System.out.println("Activity has been set");
+
+
+                } else if (input.startsWith("/activity custom set")) {
+
+                String[] acParts = input.split(" ");
+                String[] activityNameArray = Arrays.copyOfRange(acParts, 3, acParts.length);
+                String activityName = String.join(" ", activityNameArray);
+
+                currentActivity = Activity.of(Activity.ActivityType.CUSTOM_STATUS, activityName);
+
+                jda.getPresence().setActivity(currentActivity);
+                System.out.println("Activity has been set");
+
+            } else if (input.startsWith("/activity clear")) {
+
+                currentActivity = null;
+                System.out.println("Activity has been cleared");
+
             }
         }
-
     }
 
     private static void suppressLogbackLogs() {
@@ -171,4 +230,3 @@ public class Main {
         return onlineStatus;
     }
 }
-
