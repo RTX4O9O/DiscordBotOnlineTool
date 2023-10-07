@@ -1,5 +1,5 @@
 @echo off
-title DiscordBotOnlineTool-ver.b2.5
+title DiscordBotOnlineTool-ver.b2.6
 echo    ___  _______  ______ ___  ___  ___ 
 echo   / _ ^\/_  __/ ^|/_/ / // _ ^\/ _ ^\/ _ ^\
 echo  / , _/ / / _^>  ^</_  _/ // /^\_, / // /
