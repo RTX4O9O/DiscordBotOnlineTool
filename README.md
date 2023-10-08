@@ -46,7 +46,7 @@ there are several **__commands__** you can use in the console
 - activity\
   `/activity` show currently activity\
   `/activity template set <p|l|w|c|s> <activity name> <url(only for streaming)>` set bot activity with discord provided template\
-  `/activity clear` clear bot activity
+  `/activity clear` clear bot activit
 ```
 p = Playing
 l = Listening
