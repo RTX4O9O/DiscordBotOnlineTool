@@ -33,30 +33,31 @@ now, bot should work perfectly
 <a name="Anything-else"></a>
 ## Anything else
 
-there are several commands you can use in the console
-
-`/onlinestatus` (or `/os`) show currently online status (ex. online, idle, dnd or invis)
-`/onlinestatus set <0|1|2|3>` (or `/os set <0|1|2|3>` ) set online status of your bot
+there are several **__commands__** you can use in the console
+- online status\
+  `/onlinestatus` (or `/os`) show currently online status (ex. online, idle, dnd or invis)\
+  `/onlinestatus set <0|1|2|3>` (or `/os set <0|1|2|3>` ) set online status of your bot
 ```
 0 = Online (default)
 1 = Idle
 2 = Do Not Distrub (aka dnd)
 3 = Invisible
 ```
-`/activity` show currently activity 
-`/activity template set <p|l|w|c> <activity name>` set bot activity with discord provided template
+- activity\
+  `/activity` show currently activity\
+  `/activity template set <p|l|w|c|s> <activity name> <url(only for streaming)>` set bot activity with discord provided template\
+  `/activity clear` clear bot activity
 ```
 p = Playing
 l = Listening
 w = Watching
 C = Competing
-S = Streaming _for this, you have to add <url> as the last argument_
+S = Streaming (for this, you have to add <url> as the last argument)
 ```
-`/activity template set <p|l|w|c> <activity name>` set bot activity with discord provided template
-`/activity clear` clear bot activity
 
-`/stop` stop the bot and turn off the console
-`/logout` logout from current BOT and you can log into another BOT you want
+- bot management\
+  `/stop` stop the bot and turn off the console\
+  `/logout` logout from current BOT and you can log into another BOT you want
 
 ## What's next
 
