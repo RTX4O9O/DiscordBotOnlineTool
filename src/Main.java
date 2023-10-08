@@ -124,9 +124,9 @@ public class Main {
                         currentActivity = Activity.competing(activityName);
                         break;
                     case "s":
-                        String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length-2);
+                        String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length - 2);
                         String activityNameStream = String.join(" ", activityNameArrayStream);
-                        String streamUrl = acParts[acParts.length-1];
+                        String streamUrl = acParts[acParts.length - 1];
                         currentActivity = Activity.streaming(activityNameStream, streamUrl);
                         break;
                     default:
@@ -136,7 +136,7 @@ public class Main {
                 System.out.println("Activity has been set");
 
 
-                } else if (input.startsWith("/activity custom set")) {
+            } /*else if (input.startsWith("/activity custom set")) {
 
                 String[] acParts = input.split(" ");
                 String[] activityNameArray = Arrays.copyOfRange(acParts, 3, acParts.length);
@@ -146,8 +146,8 @@ public class Main {
 
                 jda.getPresence().setActivity(currentActivity);
                 System.out.println("Activity has been set");
-
-            } else if (input.startsWith("/activity clear")) {
+            }*/
+              else if (input.startsWith("/activity clear")) {
 
                 currentActivity = null;
                 System.out.println("Activity has been cleared");
