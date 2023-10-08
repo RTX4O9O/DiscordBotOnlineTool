@@ -211,7 +211,28 @@ public class Main {
             return null;
         }
     }
-
+    private static void setOnlineStatus(int statusCode) {
+        switch (statusCode) {
+            case 0:
+                onlineStatus = OnlineStatus.ONLINE;
+                break;
+            case 1:
+                onlineStatus = OnlineStatus.IDLE;
+                break;
+            case 2:
+                onlineStatus = OnlineStatus.DO_NOT_DISTURB;
+                break;
+            case 3:
+                onlineStatus = OnlineStatus.INVISIBLE;
+                break;
+            default:
+                System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                break;
+        }
+        if (jda != null) {
+            jda.getPresence().setStatus(onlineStatus);
+        }
+    }
     private static void writeTokenToFile(String token, String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(token);
@@ -235,28 +256,6 @@ public class Main {
         }
     }
 
-    private static void setOnlineStatus(int statusCode) {
-        switch (statusCode) {
-            case 0:
-                onlineStatus = OnlineStatus.ONLINE;
-                break;
-            case 1:
-                onlineStatus = OnlineStatus.IDLE;
-                break;
-            case 2:
-                onlineStatus = OnlineStatus.DO_NOT_DISTURB;
-                break;
-            case 3:
-                onlineStatus = OnlineStatus.INVISIBLE;
-                break;
-            default:
-                System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
-                break;
-        }
-        if (jda != null) {
-            jda.getPresence().setStatus(onlineStatus);
-        }
-    }
 
     private static OnlineStatus getOnlineStatus() {
         return onlineStatus;
