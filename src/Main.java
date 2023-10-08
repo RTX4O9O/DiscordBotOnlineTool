@@ -124,9 +124,9 @@ public class Main {
                         currentActivity = Activity.competing(activityName);
                         break;
                     case "s":
-                        String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length-1);
+                        String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length-2);
                         String activityNameStream = String.join(" ", activityNameArrayStream);
-                        String streamUrl = acParts[acParts.length];
+                        String streamUrl = acParts[acParts.length-1];
                         currentActivity = Activity.streaming(activityNameStream, streamUrl);
                         break;
                     default:
