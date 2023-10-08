@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.OnlineStatus;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -146,12 +147,40 @@ public class Main {
 
                 jda.getPresence().setActivity(currentActivity);
                 System.out.println("Activity has been set");
-            }*/
-              else if (input.startsWith("/activity clear")) {
-
+            }*/ else if (input.equalsIgnoreCase("/activity clear")) {
                 currentActivity = null;
                 System.out.println("Activity has been cleared");
 
+            } else if (input.equalsIgnoreCase("/help")) {
+                System.out.println("Helper: Type \"management\" for bot management related command list");
+                System.out.println("Helper: Type \"onlinestatus\" for onlinestatus related command list");
+                System.out.println("Helper: Type \"activity\" for activity related command list");
+                System.out.println("Helper: Type \"/leave\" to leave Helper");
+                Scanner helper = new Scanner(System.in);
+                while (true) {
+                    String helpTarget = helper.nextLine();
+                    if (helpTarget.equals("management")) {
+                        System.out.println("\"/stop\" - stop the ebot and turn off the console");
+                        System.out.println("\"/logout\" - logout from current bot");
+                    } else if (helpTarget.equals("onlinestatus")) {
+                        System.out.println("\"/onlinestatus\" (or \"/os\") - show currently online status (ex. online, idle, dnd or invis)");
+                        System.out.println("\"/onlinestatus set <0|1|2|3>\" (or \"/os set <0|1|2|3>\" ) - set online status of your bot");
+                    } else if (helpTarget.equals("activity")) {
+                        System.out.println("\"/activity\" - show currently activity");
+                        System.out.println("\"/activity template set <p|l|w|c|s> <activity name> <url(only for streaming)>\" - set bot activity with discord provided template");
+                        System.out.println("\"/activity clear\" - clear bot activity");
+                    } else if (helpTarget.equals("/leave")) {
+                        System.out.println("You've left Helper");
+                        break;
+                    } else {
+                        System.out.println("Helper: Unrecognized command category.");
+                        System.out.println("Helper: Type \"management\" for bot management related command list");
+                        System.out.println("Helper: Type \"onlinestatus\" for onlinestatus related command list");
+                        System.out.println("Helper: Type \"activity\" for activity related command list");
+                        System.out.println("Helper: Type \"/leave\" to leave Helper");
+                    }
+                    System.out.println("Helper: For more command usage, please check https://github.com/RTX4O9O/DiscordBotOnlineTool/blob/main/README.md#Anything-else");
+                }
             }
         }
     }
