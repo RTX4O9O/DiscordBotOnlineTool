@@ -36,7 +36,7 @@ now, bot should work perfectly
 there are several **__commands__** you can use in the console
 - online status\
 `/onlinestatus` (or `/os`) show currently online status (ex. online, idle, dnd or invis)\
-`/onlinestatus set <0|1|2|3>` (or `/os set <0|1|2|3>` ) set online status of your bot\
+`/onlinestatus set <0|1|2|3>` (or `/os set <0|1|2|3>` ) set online status of your bot
 ```
 0 = Online (default)
 1 = Idle
@@ -47,7 +47,7 @@ there are several **__commands__** you can use in the console
 `/activity` show currently activity\ 
 `/activity template set <p|l|w|c> <activity name>` set bot activity with discord provided template\
 `/activity custom set <activity name>` set custom bot activity\
-`/activity clear` clear bot activity\
+`/activity clear` clear bot activity
 ```
 p = Playing
 l = Listening
@@ -56,8 +56,8 @@ C = Competing
 S = Streaming _for this, you have to add <url> as the last argument_
 ```
 
-- bot management
-`/stop` stop the bot and turn off the console
+- bot management\
+`/stop` stop the bot and turn off the console\
 `/logout` logout from current BOT and you can log into another BOT you want
 
 ## What's next
