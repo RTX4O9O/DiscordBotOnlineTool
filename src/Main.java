@@ -180,6 +180,7 @@ public class Main {
                         System.out.println("Helper: Type \"/leave\" to leave Helper");
                     }
                     System.out.println("Helper: For more command usage, please check https://github.com/RTX4O9O/DiscordBotOnlineTool/blob/main/README.md#Anything-else");
+                    helper.nextLine();
                 }
             }
         }
