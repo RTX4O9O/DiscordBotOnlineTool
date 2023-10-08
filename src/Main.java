@@ -124,8 +124,10 @@ public class Main {
                         currentActivity = Activity.competing(activityName);
                         break;
                     case "s":
-                        String streamUrl = acParts[4];
-                        currentActivity = Activity.streaming(activityName, streamUrl);
+                        String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length-1);
+                        String activityNameStream = String.join(" ", activityNameArrayStream);
+                        String streamUrl = acParts[acParts.length];
+                        currentActivity = Activity.streaming(activityNameStream, streamUrl);
                         break;
                     default:
                         System.out.println("Invalid activity code. Use p for Playing, s for Streaming, l for Listening, w for Watching, or c for Competing.");
