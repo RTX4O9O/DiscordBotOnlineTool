@@ -45,7 +45,7 @@ there are several **__commands__** you can use in the console
 ```
 - activity\
 `/activity` show currently activity\ 
-`/activity template set <p|l|w|c> <activity name>` set bot activity with discord provided template\
+`/activity template set <p|l|w|c|s> <activity name> <url(only for streaming)>` set bot activity with discord provided template\
 `/activity custom set <activity name>` set custom bot activity\
 `/activity clear` clear bot activity
 ```
@@ -53,7 +53,7 @@ p = Playing
 l = Listening
 w = Watching
 C = Competing
-S = Streaming _for this, you have to add <url> as the last argument_
+S = Streaming (for this, you have to add <url> as the last argument)
 ```
 
 - bot management\
