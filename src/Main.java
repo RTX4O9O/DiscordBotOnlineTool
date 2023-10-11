@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.OnlineStatus;
-
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -64,20 +63,22 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
+            // logout
             if (input.equalsIgnoreCase("/logout")) {
                 System.out.println("Token cache has been cleaned. Program restarting......");
                 clearTokenFile(tokenFilePath);
                 jda.shutdownNow();
                 startBot();
                 return;
+            // stop
             } else if (input.equalsIgnoreCase("/stop")) {
                 System.out.println("Bot is stopping...");
                 jda.shutdownNow();
                 break;
-
+                
+            // onlinestatus
             } else if (input.equalsIgnoreCase("/onlinestatus") || input.equalsIgnoreCase("/os")) {
                 System.out.println("Current online status is: " + getOnlineStatus().getKey());
-
             } else if (input.startsWith("/onlinestatus set ") || input.startsWith("/os set ")) {
                 String[] osParts = input.split(" ");
                 if (osParts.length == 3 && osParts[1].equalsIgnoreCase("set")) {
@@ -96,16 +97,14 @@ public class Main {
                 } else {
                     System.out.println("Invalid command. Use \"/onlinestatus set <0|1|2|3>\" to set online status.");
                 }
-
+            // activity
             } else if (input.equalsIgnoreCase("/activity")) {
                 if (currentActivity != null) {
                     System.out.println("Current Activity: " + currentActivity.getType() + " - " + currentActivity.getName());
                 } else {
                     System.out.println("There's no activity right now.");
                 }
-
             } else if (input.startsWith("/activity template set")) {
-
                 String[] acParts = input.split(" ");
                 String activityCode = acParts[3];
                 String[] activityNameArray = Arrays.copyOfRange(acParts, 4, acParts.length);
@@ -150,7 +149,7 @@ public class Main {
             }*/ else if (input.equalsIgnoreCase("/activity clear")) {
                 currentActivity = null;
                 System.out.println("Activity has been cleared");
-
+            // help
             } else if (input.equalsIgnoreCase("/help")) {
                 System.out.println("Helper: Type \"management\" for bot management related command list");
                 System.out.println("Helper: Type \"onlinestatus\" for onlinestatus related command list");
