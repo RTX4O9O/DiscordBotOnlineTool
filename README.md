@@ -22,13 +22,10 @@ the Discord Bot Online Tool.
 
 ## How can I install this
 
-download the zip file and unarchive it (everywhere you want!)
-run the start.bat
-and a little cute black console window should pop up
-first, it will ask for your discord BOT token
-all you need to do is just copy it from [discord developer portal](https://discord.com/developers/applications) and
-paste it in
-now, bot should work perfectly
+1. download the zip file and unarchive it (everywhere you want!)
+2. run the start.bat, and a cmd console window should pop up
+    first, it will ask for your discord BOT token, all you need to do is just copy it from [discord developer portal](https://discord.com/developers/applications) and paste it in
+    now, bot should work perfectly
 
 <a name="Anything-else"></a>
 ## Anything else
