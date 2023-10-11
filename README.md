@@ -17,7 +17,7 @@ For more you can check our command list [here](#Anything-else)
 
 ## What else do I need
 
-[Java Runtime Environment (JRE)](https://www.java.com/zh-TW/download/) version 8 or above is required to run
+[Java Runtime Environment (JRE)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) version 17 or above is required to run
 the Discord Bot Online Tool.
 
 ## How can I install this
