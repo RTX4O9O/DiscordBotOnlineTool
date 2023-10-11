@@ -63,10 +63,11 @@ feel free to check it out and leave your idea
 
 ## Where can I contribute
 
-Contributions are welcome!
-If you have any suggestions, bug reports, or feature requests
-please open an issue on the GitHub repository or submit a pull request.
-ty a lot<3
+Contributions are welcome!\
+If you find any bug, please report it to [issue](https://github.com/RTX4O9O/DiscordBotOnlineTool/issues)\
+And if you have any suggestions or feature requests\
+please open an [discuss](https://github.com/RTX4O9O/DiscordBotOnlineTool/discussions) on the GitHub repository or submit a pull request.\
+TYSM<3
 
 ## Disclaimer
 
