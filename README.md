@@ -4,15 +4,15 @@
 
 ## What is this
 
-Discord Bot Online Tool is a Java-based application that allows users to run and manage Discord bots easily.
+Discord Bot Online Tool is a Java-based application that allows users to run and manage Discord bots easily.\
 It provides a simple command-line interface to start, stop, and manage your Discord bot without the need for manual
 command prompt interactions.
 
 ## What can this do
 
-Start and manage your Discord bot **with ease!**
-Ability to automatically save and load your bot's token for convenience.
-Graceful shutdown of the bot to ensure a clean exit.
+Start and manage your Discord bot **with ease!**\
+Ability to automatically save and load your bot's token for convenience.\
+Graceful shutdown of the bot to ensure a clean exit.\
 For more you can check our command list [here](#Anything-else)
 
 ## What else do I need
