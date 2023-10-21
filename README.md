@@ -4,31 +4,28 @@
 
 ## What is this
 
-Discord Bot Online Tool is a Java-based application that allows users to run and manage Discord bots easily.
+Discord Bot Online Tool is a Java-based application that allows users to run and manage Discord bots easily.\
 It provides a simple command-line interface to start, stop, and manage your Discord bot without the need for manual
 command prompt interactions.
 
 ## What can this do
 
-Start and manage your Discord bot with ease.
-Ability to automatically save and load your bot's token for convenience.
-Graceful shutdown of the bot to ensure a clean exit.
+Start and manage your Discord bot **with ease!**\
+Ability to automatically save and load your bot's token for convenience.\
+Graceful shutdown of the bot to ensure a clean exit.\
 For more you can check our command list [here](#Anything-else)
 
 ## What else do I need
 
-[Java Runtime Environment (JRE)](https://www.java.com/zh-TW/download/manual.jsp) version 8 or above is required to run
+[Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) version 17 or above is required to run
 the Discord Bot Online Tool.
 
 ## How can I install this
 
-download the zip file and unarchive it (everywhere you want!)
-run the start.bat
-and a little cute black console window should pop up
-first, it will ask for your discord BOT token
-all you need to do is just copy it from [discord developer portal](https://discord.com/developers/applications) and
-paste it in
-now, bot should work perfectly
+1. download the zip file and unarchive it (everywhere you want!)\
+2. run the start.bat, and a cmd console window should pop up\
+    first, it will ask for your discord BOT token, all you need to do is just copy it from [discord developer portal](https://discord.com/developers/applications) and paste it in\
+    now, bot should work perfectly
 
 <a name="Anything-else"></a>
 ## Anything else
@@ -66,10 +63,11 @@ feel free to check it out and leave your idea
 
 ## Where can I contribute
 
-Contributions are welcome!
-If you have any suggestions, bug reports, or feature requests
-please open an issue on the GitHub repository or submit a pull request.
-ty a lot<3
+Contributions are welcome!\
+If you find any bug, please report it to [issue](https://github.com/RTX4O9O/DiscordBotOnlineTool/issues)\
+And if you have any suggestions or feature requests\
+please open an [discuss](https://github.com/RTX4O9O/DiscordBotOnlineTool/discussions) on the GitHub repository or submit a pull request.\
+TYSM<3
 
 ## Disclaimer
 
@@ -92,3 +90,4 @@ to assist as best as possible.
 By using the code provided in this repository, you agree to this disclaimer and take full responsibility for your
 actions.
 te at 
+
