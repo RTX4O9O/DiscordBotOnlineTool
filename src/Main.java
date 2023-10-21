@@ -212,7 +212,7 @@ public class Main {
         while (true) {
             String helpTarget = helper.nextLine();
             if (helpTarget.equals("management")) {
-                System.out.println("\"/stop\" - stop the ebot and turn off the console");
+                System.out.println("\"/stop\" - stop the bot and turn off the console");
                 System.out.println("\"/logout\" - logout from current bot");
             } else if (helpTarget.equals("onlinestatus")) {
                 System.out.println("\"/onlinestatus\" (or \"/os\") - show currently online status (ex. online, idle, dnd or invis)");
