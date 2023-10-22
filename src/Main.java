@@ -70,6 +70,7 @@ public class Main {
                 jda.shutdownNow();
                 startBot();
                 return;
+
             // stop
             } else if (input.equalsIgnoreCase("/stop")) {
                 System.out.println("Bot is stopping...");
@@ -111,26 +112,18 @@ public class Main {
                 String activityName = String.join(" ", activityNameArray);
 
                 switch (activityCode) {
-                    case "p":
-                        currentActivity = Activity.playing(activityName);
-                        break;
-                    case "l":
-                        currentActivity = Activity.listening(activityName);
-                        break;
-                    case "w":
-                        currentActivity = Activity.watching(activityName);
-                        break;
-                    case "c":
-                        currentActivity = Activity.competing(activityName);
-                        break;
-                    case "s":
+                    case "p" -> currentActivity = Activity.playing(activityName);
+                    case "l" -> currentActivity = Activity.listening(activityName);
+                    case "w" -> currentActivity = Activity.watching(activityName);
+                    case "c" -> currentActivity = Activity.competing(activityName);
+                    case "s" -> {
                         String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length - 2);
                         String activityNameStream = String.join(" ", activityNameArrayStream);
                         String streamUrl = acParts[acParts.length - 1];
                         currentActivity = Activity.streaming(activityNameStream, streamUrl);
-                        break;
-                    default:
-                        System.out.println("Invalid activity code. Use p for Playing, s for Streaming, l for Listening, w for Watching, or c for Competing.");
+                    }
+                    default ->
+                            System.out.println("Invalid activity code. Use p for Playing, s for Streaming, l for Listening, w for Watching, or c for Competing.");
                 }
                 jda.getPresence().setActivity(currentActivity);
                 System.out.println("Activity has been set");
@@ -183,21 +176,12 @@ public class Main {
     }
     private static void setOnlineStatus(int statusCode) {
         switch (statusCode) {
-            case 0:
-                onlineStatus = OnlineStatus.ONLINE;
-                break;
-            case 1:
-                onlineStatus = OnlineStatus.IDLE;
-                break;
-            case 2:
-                onlineStatus = OnlineStatus.DO_NOT_DISTURB;
-                break;
-            case 3:
-                onlineStatus = OnlineStatus.INVISIBLE;
-                break;
-            default:
-                System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
-                break;
+            case 0 -> onlineStatus = OnlineStatus.ONLINE;
+            case 1 -> onlineStatus = OnlineStatus.IDLE;
+            case 2 -> onlineStatus = OnlineStatus.DO_NOT_DISTURB;
+            case 3 -> onlineStatus = OnlineStatus.INVISIBLE;
+            default ->
+                    System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
         }
         if (jda != null) {
             jda.getPresence().setStatus(onlineStatus);
@@ -209,28 +193,34 @@ public class Main {
         System.out.println("Helper: Type \"activity\" for activity related command list");
         System.out.println("Helper: Type \"/leave\" to leave Helper");
         Scanner helper = new Scanner(System.in);
+        label:
         while (true) {
             String helpTarget = helper.nextLine();
-            if (helpTarget.equals("management")) {
-                System.out.println("\"/stop\" - stop the bot and turn off the console");
-                System.out.println("\"/logout\" - logout from current bot");
-            } else if (helpTarget.equals("onlinestatus")) {
-                System.out.println("\"/onlinestatus\" (or \"/os\") - show currently online status (ex. online, idle, dnd or invis)");
-                System.out.println("\"/onlinestatus set <0|1|2|3>\" (or \"/os set <0|1|2|3>\" ) - set online status of your bot");
-            } else if (helpTarget.equals("activity")) {
-                System.out.println("\"/activity\" - show currently activity");
-                System.out.println("\"/activity template set <p|l|w|c|s> <activity name> <url(only for streaming)>\" - set bot activity with discord provided template");
-                System.out.println("\"/activity clear\" - clear bot activity");
-            } else if (helpTarget.equals("/leave")) {
-                System.out.println("You've left Helper");
+            switch (helpTarget) {
+                case "management":
+                    System.out.println("\"/stop\" - stop the bot and turn off the console");
+                    System.out.println("\"/logout\" - logout from current bot");
+                    break;
+                case "onlinestatus":
+                    System.out.println("\"/onlinestatus\" (or \"/os\") - show currently online status (ex. online, idle, dnd or invis)");
+                    System.out.println("\"/onlinestatus set <0|1|2|3>\" (or \"/os set <0|1|2|3>\" ) - set online status of your bot");
+                    break;
+                case "activity":
+                    System.out.println("\"/activity\" - show currently activity");
+                    System.out.println("\"/activity template set <p|l|w|c|s> <activity name> <url(only for streaming)>\" - set bot activity with discord provided template");
+                    System.out.println("\"/activity clear\" - clear bot activity");
+                    break;
+                case "/leave":
+                    System.out.println("You've left Helper");
 
-                break;
-            } else {
-                System.out.println("Helper: Unrecognized command category.");
-                System.out.println("Helper: Type \"management\" for bot management related command list");
-                System.out.println("Helper: Type \"onlinestatus\" for onlinestatus related command list");
-                System.out.println("Helper: Type \"activity\" for activity related command list");
-                System.out.println("Helper: Type \"/leave\" to leave Helper");
+                    break label;
+                default:
+                    System.out.println("Helper: Unrecognized command category.");
+                    System.out.println("Helper: Type \"management\" for bot management related command list");
+                    System.out.println("Helper: Type \"onlinestatus\" for onlinestatus related command list");
+                    System.out.println("Helper: Type \"activity\" for activity related command list");
+                    System.out.println("Helper: Type \"/leave\" to leave Helper");
+                    break;
             }
             System.out.println("Helper: For more command usage, please check https://github.com/RTX4O9O/DiscordBotOnlineTool/blob/main/README.md#Anything-else");
             helper.nextLine();
