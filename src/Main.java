@@ -42,8 +42,10 @@ public class Main {
             clearTokenFile(tokenFilePath);
             Scanner scanner = new Scanner(System.in);
             System.out.print("Bot Token: ");
-            String userInput = scanner.nextLine();
-            token = userInput;
+            token = scanner.nextLine();
+            //old method
+            /*String userInput = scanner.nextLine();
+            token = userInput;*/
             writeTokenToFile(token, tokenFilePath);
         }
 
