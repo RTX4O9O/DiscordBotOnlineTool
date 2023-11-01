@@ -1,6 +1,6 @@
 # Discord Bot Online Tool
 
-# A Super Simple Discord Bot Host Tool
+# A Super Simple Discord Bot Hosting Tool
 
 ## What is this
 
