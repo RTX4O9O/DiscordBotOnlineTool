@@ -27,7 +27,7 @@ public class Main {
     private static void startBot() {
         String userHome = System.getProperty("user.home");
         String botToolPath = Paths.get(userHome, "RTXBotTool").toString();
-        String currentDirectory = System.getProperty("user.dir");
+        String currentDirectory = "token";
         String jarName = new File(currentDirectory).getName().replace(".jar", "");
         String tokenFolderPath = Paths.get(botToolPath, jarName).toString();
         File tokenFolder = new File(tokenFolderPath);
@@ -66,7 +66,7 @@ public class Main {
         while (true) {
             String input = scanner.nextLine();
             // logout
-            if (input.equalsIgnoreCase("/logout")) {
+            if (input.equalsIgnoreCase("/logout") || input.equalsIgnoreCase("logout")) {
                 System.out.println("Token cache has been cleaned. Program restarting......");
                 clearTokenFile(tokenFilePath);
                 jda.shutdownNow();
@@ -74,32 +74,15 @@ public class Main {
                 return;
 
             // stop
-            } else if (input.equalsIgnoreCase("/stop")) {
+            } else if (input.equalsIgnoreCase("/stop") || input.equalsIgnoreCase("stop")) {
                 System.out.println("Bot is stopping...");
                 jda.shutdownNow();
                 break;
                 
-            // onlinestatus
-            } else if (input.equalsIgnoreCase("/onlinestatus") || input.equalsIgnoreCase("/os")) {
-                System.out.println("Current online status is: " + getOnlineStatus().getKey());
-            } else if (input.startsWith("/onlinestatus set ") || input.startsWith("/os set ")) {
-                String[] osParts = input.split(" ");
-                if (osParts.length == 3 && osParts[1].equalsIgnoreCase("set")) {
-                    int statusCode;
-                    try {
-                        statusCode = Integer.parseInt(osParts[2]);
-                        if (statusCode >= 0 && statusCode <= 3) {
-                            setOnlineStatus(statusCode);
-                            System.out.println("Online status has been set.");
-                        } else {
-                            System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
-                    }
-                } else {
-                    System.out.println("Invalid command. Use \"/onlinestatus set <0|1|2|3>\" to set online status.");
-                }
+            // onlineStatus
+            } else if (input.startsWith("/onlinestatus") || input.startsWith("/os")) {
+                onlineStatus(input);
+
             // activity
             } else if (input.equalsIgnoreCase("/activity")) {
                 if (currentActivity != null) {
@@ -151,6 +134,36 @@ public class Main {
         }
     }
 
+
+    // commands
+    private static void onlineStatus(String input){
+        if (input.equalsIgnoreCase("/onlinestatus") || input.equalsIgnoreCase("/os")) {
+            System.out.println("Current online status is: " + getOnlineStatus().getKey());
+        } else if (input.startsWith("/onlinestatus set ") || input.startsWith("/os set ")) {
+            String[] osParts = input.split(" ");
+            if (osParts.length == 3 && osParts[1].equalsIgnoreCase("set")) {
+                int statusCode;
+                try {
+                    statusCode = Integer.parseInt(osParts[2]);
+                    if (statusCode >= 0 && statusCode <= 3) {
+                        setOnlineStatus(statusCode);
+                        System.out.println("Online status has been set.");
+                    } else {
+                        System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                }
+            } else {
+                System.out.println("Invalid command. Use \"/onlinestatus set <0|1|2|3>\" to set online status.");
+            }
+        } else {
+            System.out.println("Invalid command. Try \"/help\" for help.");
+        }
+
+
+
+    }
     private static void suppressLogbackLogs() {
         ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
         rootLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
