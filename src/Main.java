@@ -17,6 +17,9 @@ public class Main {
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
     private static OnlineStatus onlineStatus = OnlineStatus.ONLINE;
     private static Activity currentActivity;
+    private static OnlineStatus getOnlineStatus() {
+        return onlineStatus;
+    }
 
     public static void main(String[] args) {
         suppressLogbackLogs();
@@ -184,7 +187,7 @@ public class Main {
 
 
     // commands
-    private static void onlineStatus(String input){
+    private static void onlineStatus(String input) {
         if (input.equalsIgnoreCase("/onlinestatus") || input.equalsIgnoreCase("/os")) {
             System.out.println("Current online status is: " + getOnlineStatus().getKey());
         } else if (input.startsWith("/onlinestatus set ") || input.startsWith("/os set ")) {
@@ -264,7 +267,4 @@ public class Main {
         helper.close();
     }
 
-    private static OnlineStatus getOnlineStatus() {
-        return onlineStatus;
-    }
 }
