@@ -134,6 +134,54 @@ public class Main {
         }
     }
 
+    //non-echo setup
+    private static void suppressLogbackLogs() {
+        ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
+        rootLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
+    }
+    private static void suppressJdaLog() {
+        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        root.setLevel(Level.ERROR);
+    }
+
+
+    //token-temp setup
+    private static String readTokenFromFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            return reader.readLine();
+        } catch (FileNotFoundException e) {
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to load token");
+            return null;
+        }
+    }
+    private static boolean validateToken(String token) {
+        return !token.isEmpty();
+    }
+    private static void writeTokenToFile(String token, String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(token);
+            System.out.println("Token has been saved to: token-temp");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to write token into cache");
+        }
+    }
+    private static void clearTokenFile(String filePath) {
+        try {
+            File file = new File(filePath);
+            if (file.delete()) {
+                System.out.println("Token-temp has been cleaned");
+            } else {
+                System.out.println("Failed to clean Token-temp");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // commands
     private static void onlineStatus(String input){
@@ -146,7 +194,18 @@ public class Main {
                 try {
                     statusCode = Integer.parseInt(osParts[2]);
                     if (statusCode >= 0 && statusCode <= 3) {
-                        setOnlineStatus(statusCode);
+                        switch (statusCode) {
+                            case 0 -> onlineStatus = OnlineStatus.ONLINE;
+                            case 1 -> onlineStatus = OnlineStatus.IDLE;
+                            case 2 -> onlineStatus = OnlineStatus.DO_NOT_DISTURB;
+                            case 3 -> onlineStatus = OnlineStatus.INVISIBLE;
+                            default ->
+                                    System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
+                        }
+                        if (jda != null) {
+                            jda.getPresence().setStatus(onlineStatus);
+                        }
+
                         System.out.println("Online status has been set.");
                     } else {
                         System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
@@ -163,44 +222,6 @@ public class Main {
 
 
 
-    }
-    private static void suppressLogbackLogs() {
-        ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
-        rootLogger.setLevel(ch.qos.logback.classic.Level.ERROR);
-    }
-
-    private static void suppressJdaLog() {
-        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
-        root.setLevel(Level.ERROR);
-    }
-
-    private static boolean validateToken(String token) {
-        return !token.isEmpty();
-    }
-
-    private static String readTokenFromFile(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            return reader.readLine();
-        } catch (FileNotFoundException e) {
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to load token");
-            return null;
-        }
-    }
-    private static void setOnlineStatus(int statusCode) {
-        switch (statusCode) {
-            case 0 -> onlineStatus = OnlineStatus.ONLINE;
-            case 1 -> onlineStatus = OnlineStatus.IDLE;
-            case 2 -> onlineStatus = OnlineStatus.DO_NOT_DISTURB;
-            case 3 -> onlineStatus = OnlineStatus.INVISIBLE;
-            default ->
-                    System.out.println("Invalid status code. Use 0 for ONLINE, 1 for IDLE, 2 for DO NOT DISTURB, or 3 for INVISIBLE.");
-        }
-        if (jda != null) {
-            jda.getPresence().setStatus(onlineStatus);
-        }
     }
     private static void helper() {
         System.out.println("Helper: Type \"management\" for bot management related command list");
@@ -242,29 +263,6 @@ public class Main {
         }
         helper.close();
     }
-    private static void writeTokenToFile(String token, String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write(token);
-            System.out.println("Token has been saved to: token-temp");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to write token into cache");
-        }
-    }
-
-    private static void clearTokenFile(String filePath) {
-        try {
-            File file = new File(filePath);
-            if (file.delete()) {
-                System.out.println("Token-temp has been cleaned");
-            } else {
-                System.out.println("Failed to clean Token-temp");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private static OnlineStatus getOnlineStatus() {
         return onlineStatus;
