@@ -241,7 +241,7 @@ public class Main {
                     System.out.println("\"/logout\" - logout from current bot");
                     break;
                 case "onlinestatus":
-                    System.out.println("\"/onlinestatus\" (or \"/os\") - show currently online status (ex. online, idle, dnd or invis)");
+                    System.out.println("\"/onlinestatus\" (or \"/os\") - show currently online status (ex. online, idle, dnd or invisible)");
                     System.out.println("\"/onlinestatus set <0|1|2|3>\" (or \"/os set <0|1|2|3>\" ) - set online status of your bot");
                     break;
                 case "activity":
