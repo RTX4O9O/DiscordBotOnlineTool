@@ -14,7 +14,6 @@ import java.util.concurrent.Executors;
 
 public class Main {
     private static JDA jda;
-    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
     private static OnlineStatus onlineStatus = OnlineStatus.ONLINE;
     private static Activity currentActivity;
     private static OnlineStatus getOnlineStatus() {
