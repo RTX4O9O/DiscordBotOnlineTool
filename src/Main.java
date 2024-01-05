@@ -43,9 +43,6 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Bot Token: ");
             token = scanner.nextLine();
-            //old method
-            /*String userInput = scanner.nextLine();
-            token = userInput;*/
             writeTokenToFile(token, tokenFilePath);
         }
 
@@ -78,55 +75,15 @@ public class Main {
                 System.out.println("Bot is stopping...");
                 jda.shutdownNow();
                 break;
-                
+
             // onlineStatus
             } else if (input.startsWith("/onlinestatus") || input.startsWith("/os")) {
                 onlineStatus(input);
 
             // activity
-            } else if (input.equalsIgnoreCase("/activity")) {
-                if (currentActivity != null) {
-                    System.out.println("Current Activity: " + currentActivity.getType() + " - " + currentActivity.getName());
-                } else {
-                    System.out.println("There's no activity right now.");
-                }
-            } else if (input.startsWith("/activity template set")) {
-                String[] acParts = input.split(" ");
-                String activityCode = acParts[3];
-                String[] activityNameArray = Arrays.copyOfRange(acParts, 4, acParts.length);
-                String activityName = String.join(" ", activityNameArray);
+            } else if (input.startsWith("/activity")) {
+                activity(input);
 
-                switch (activityCode) {
-                    case "p" -> currentActivity = Activity.playing(activityName);
-                    case "l" -> currentActivity = Activity.listening(activityName);
-                    case "w" -> currentActivity = Activity.watching(activityName);
-                    case "c" -> currentActivity = Activity.competing(activityName);
-                    case "s" -> {
-                        String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length - 2);
-                        String activityNameStream = String.join(" ", activityNameArrayStream);
-                        String streamUrl = acParts[acParts.length - 1];
-                        currentActivity = Activity.streaming(activityNameStream, streamUrl);
-                    }
-                    default ->
-                            System.out.println("Invalid activity code. Use p for Playing, s for Streaming, l for Listening, w for Watching, or c for Competing.");
-                }
-                jda.getPresence().setActivity(currentActivity);
-                System.out.println("Activity has been set");
-
-
-            } /*else if (input.startsWith("/activity custom set")) {
-
-                String[] acParts = input.split(" ");
-                String[] activityNameArray = Arrays.copyOfRange(acParts, 3, acParts.length);
-                String activityName = String.join(" ", activityNameArray);
-
-                currentActivity = Activity.of(Activity.ActivityType.CUSTOM_STATUS, activityName);
-
-                jda.getPresence().setActivity(currentActivity);
-                System.out.println("Activity has been set");
-            }*/ else if (input.equalsIgnoreCase("/activity clear")) {
-                currentActivity = null;
-                System.out.println("Activity has been cleared");
             // help
             } else if (input.equalsIgnoreCase("/help")) {
                 helper();
@@ -248,7 +205,6 @@ public class Main {
                     break;
                 case "/leave":
                     System.out.println("You've left Helper");
-
                     break label;
                 default:
                     System.out.println("Helper: Unrecognized command category.");
@@ -259,9 +215,55 @@ public class Main {
                     break;
             }
             System.out.println("Helper: For more command usage, please check https://github.com/RTX4O9O/DiscordBotOnlineTool/blob/main/README.md#Anything-else");
-            helper.nextLine();
         }
         helper.close();
-    }
 
+    }
+    private static void activity(String input) {
+        if (input.equalsIgnoreCase("/activity")) {
+            if (currentActivity != null) {
+                System.out.println("Current Activity: " + currentActivity.getType() + " - " + currentActivity.getName());
+            } else {
+                System.out.println("There's no activity right now.");
+            }
+        } else if (input.startsWith("/activity template set")) {
+            String[] acParts = input.split(" ");
+            String activityCode = acParts[3];
+            String[] activityNameArray = Arrays.copyOfRange(acParts, 4, acParts.length);
+            String activityName = String.join(" ", activityNameArray);
+
+            switch (activityCode) {
+                case "p" -> currentActivity = Activity.playing(activityName);
+                case "l" -> currentActivity = Activity.listening(activityName);
+                case "w" -> currentActivity = Activity.watching(activityName);
+                case "c" -> currentActivity = Activity.competing(activityName);
+                case "s" -> {
+                    String[] activityNameArrayStream = Arrays.copyOfRange(acParts, 4, acParts.length - 2);
+                    String activityNameStream = String.join(" ", activityNameArrayStream);
+                    String streamUrl = acParts[acParts.length - 1];
+                    currentActivity = Activity.streaming(activityNameStream, streamUrl);
+                }
+                default ->
+                        System.out.println("Invalid activity code. Use p for Playing, s for Streaming, l for Listening, w for Watching, or c for Competing.");
+            }
+            jda.getPresence().setActivity(currentActivity);
+            System.out.println("Activity has been set");
+
+
+        } /*else if (input.startsWith("/activity custom set")) {
+
+                String[] acParts = input.split(" ");
+                String[] activityNameArray = Arrays.copyOfRange(acParts, 3, acParts.length);
+                String activityName = String.join(" ", activityNameArray);
+
+                currentActivity = Activity.of(Activity.ActivityType.CUSTOM_STATUS, activityName);
+
+                jda.getPresence().setActivity(currentActivity);
+                System.out.println("Activity has been set");
+            }*/ else if (input.equalsIgnoreCase("/activity clear")) {
+            currentActivity = null;
+            System.out.println("Activity has been cleared");
+
+        }
+    }
 }
